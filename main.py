@@ -3,10 +3,10 @@ import pyaudio
 import json
 from vosk import Model, KaldiRecognizer
 
-# # Check if the model directory exists
-# if not os.path.exists("model"):
-#     print("Please download the model from https://alphacephei.com/vosk/models and unpack as 'model' in the current folder.")
-#     exit(1)
+# Check if the model directory exists
+if not os.path.exists("model"):
+    print("Please download the model from https://alphacephei.com/vosk/models and unpack as 'model' in the current folder.")
+    exit(1)
 
 # # Load the Vosk model
 # model = Model("model")
