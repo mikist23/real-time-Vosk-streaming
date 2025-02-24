@@ -8,11 +8,11 @@ if not os.path.exists("model"):
     print("Please download the model from https://alphacephei.com/vosk/models and unpack as 'model' in the current folder.")
     exit(1)
 
-# # Load the Vosk model
-# model = Model("model")
-# # Set the sample rate. Ensure this matches your microphone's sample rate.
-# sample_rate = 16000
-# recognizer = KaldiRecognizer(model, sample_rate)
+# Load the Vosk model
+model = Model("model")
+# Set the sample rate. Ensure this matches your microphone's sample rate.
+sample_rate = 16000
+recognizer = KaldiRecognizer(model, sample_rate)
 
 # # Set up PyAudio for microphone streaming
 # p = pyaudio.PyAudio()
