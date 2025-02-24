@@ -14,8 +14,8 @@ model = Model("model")
 sample_rate = 16000
 recognizer = KaldiRecognizer(model, sample_rate)
 
-# # Set up PyAudio for microphone streaming
-# p = pyaudio.PyAudio()
+# Set up PyAudio for microphone streaming
+p = pyaudio.PyAudio()
 
 # stream = p.open(format=pyaudio.paInt16,
 #                 channels=1,
