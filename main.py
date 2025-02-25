@@ -150,3 +150,36 @@ def record_snippet(duration, stream, frames_per_buffer, sample_rate):
         data = stream.read(frames_per_buffer, exception_on_overflow=False)
         frames.append(data)
     return b"".join(frames)
+
+def detect_language(snippet, model_en, model_cn, sample_rate, frames_per_buffer):
+    """
+    Feed the audio snippet into both English and Chinese recognizers,
+    then determine which language is more likely based on the transcription.
+    """
+    # Create a new recognizer for each model for the snippet
+    recognizer_en = KaldiRecognizer(model_en, sample_rate)
+    recognizer_cn = KaldiRecognizer(model_cn, sample_rate)
+    
+    # Process the snippet in chunks to simulate streaming
+    for i in range(0, len(snippet), frames_per_buffer):
+        chunk = snippet[i:i+frames_per_buffer]
+        recognizer_en.AcceptWaveform(chunk)
+        recognizer_cn.AcceptWaveform(chunk)
+    
+    result_en = json.loads(recognizer_en.Result())
+    result_cn = json.loads(recognizer_cn.Result())
+    
+    text_en = result_en.get("text", "").strip()
+    text_cn = result_cn.get("text", "").strip()
+    
+    print("English recognizer result:", text_en)
+    print("Chinese recognizer result:", text_cn)
+    
+    # Use a simple check: if the Chinese recognizer returns text with Chinese characters, assume it's Chinese.
+    if text_cn and contains_chinese(text_cn):
+        return "chinese"
+    elif text_en and not contains_chinese(text_en):
+        return "english"
+    else:
+        # Default to English if unsure
+        return "english"
