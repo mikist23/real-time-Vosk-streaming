@@ -28,6 +28,7 @@ def main():
         p.terminate()
         exit(1)
 
+<<<<<<< HEAD
     print("Listening... Speak into your microphone.")
     last_partial = ""
 
@@ -59,3 +60,36 @@ def main():
 
 if __name__ == "__main__":
     main()
+=======
+stream = p.open(format=pyaudio.paInt16,
+                channels=1,
+                rate=sample_rate,
+                input=True,
+                frames_per_buffer=8000)
+stream.start_stream()
+
+print("Listening... Speak into your microphone.")
+
+try:
+    while True:
+        # Read audio data from the microphone
+        data = stream.read(4000, exception_on_overflow=False)
+        if len(data) == 0:
+            break
+
+        # Process the audio chunk with Vosk
+        if recognizer.AcceptWaveform(data):
+            # Final result when a phrase is complete
+            result = json.loads(recognizer.Result())
+            print("Final:", result.get("text", ""))
+        else:
+            # Partial result while still processing
+            partial_result = json.loads(recognizer.PartialResult())
+            print("Partial:", partial_result.get("partial", ""))
+except KeyboardInterrupt:
+    print("\nStopping...")
+finally:
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+>>>>>>> 54593da3233676029e675e59208d491c9880e334
