@@ -1,3 +1,4 @@
+# ************* ENGLISH MODEL ******************
 # import os
 # import pyaudio
 # import json
@@ -5,12 +6,12 @@
 
 # def main():
 #     # Check if the model directory exists
-#     if not os.path.exists("model"):
+#     if not os.path.exists("model1"):
 #         print("Error: 'model' directory not found.")
 #         exit(1)
 
 #     print("Loading model...")
-#     model = Model("model")
+#     model = Model("model1")
 #     sample_rate = 16000
 #     recognizer = KaldiRecognizer(model, sample_rate)
 
@@ -74,7 +75,7 @@ def main():
         exit(1)
 
     print("Loading Chinese model...")
-    model = Model("model_cn")
+    model = Model("model2")
     sample_rate = 16000
     recognizer = KaldiRecognizer(model, sample_rate)
 
